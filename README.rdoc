@@ -1,6 +1,6 @@
-= Redmine Github Hook
+= Redmine Git Hook
 
-This plugin allows you to update your local Git repositories in Redmine when changes have been pushed to Github.
+This plugin allows you to update your local Git repositories in Redmine when it receive a HTTP callback.
 
 == Description
 
@@ -8,8 +8,9 @@ Redmine <http://redmine.org> has supported Git repositories for a long time, all
 
 If your shared repository is on a remote machine - for example on Github - this unfortunately means a bit of legwork to keep the local, Redmine-accessible repository up-to-date. The common approach is to set up a cronjob that pulls in any changes with regular intervals and updates Redmine with them.
 
-That approach works perfectly fine, but is a bit heavy-handed and cumbersome. The Redmine Github Hook plugin allows Github to notify your Redmine installation when changes have been pushed to a repository, triggering an update of your local repository and Redmine data only when it is actually necessary.
+That approach works perfectly fine, but is a bit heavy-handed and cumbersome. The Redmine Git Hook plugin allows a Web service to notify your Redmine installation when changes have been pushed to a repository, triggering an update of your local repository and Redmine data only when it is actually necessary.
 
+This plugin is based on the plugin Redmine Github Hook from Jakob Skjerning <https://github.com/koppen/redmine_github_hook>.
 
 == Installation
 
@@ -37,7 +38,8 @@ That's it. Github will now send a HTTP POST to the Redmine Github Hook plugin wh
 
 == License
 
-Copyright (c) 2009 Jakob Skjerning
+Copyright (c) 2011 Jean-Sébastien Tremblay
+Copyright (c) 2009-2011 Jakob Skjerning
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

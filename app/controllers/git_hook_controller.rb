@@ -1,13 +1,13 @@
 require 'json'
 
-class GithubHookController < ApplicationController
+class GitHookController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :check_if_login_required
 
   def index
     repository = find_repository
 
-    # Fetch the changes from Github
+    # Fetch the changes from Git
     update_repository(repository)
 
     # Fetch the new changesets into Redmine
@@ -20,18 +20,18 @@ class GithubHookController < ApplicationController
 
   # Executes shell command. Returns true if the shell command exits with a success status code
   def exec(command)
-    logger.debug { "GithubHook: Executing command: '#{command}'" }
+    logger.debug { "GitHook: Executing command: '#{command}'" }
 
     # Get a path to a temp file
-    logfile = Tempfile.new('github_hook_exec')
+    logfile = Tempfile.new('git_hook_exec')
     logfile.close
 
     success = system("#{command} > #{logfile.path} 2>&1")
     output_from_command = File.readlines(logfile.path)
     if success
-      logger.debug { "GithubHook: Command output: #{output_from_command.inspect}"}
+      logger.debug { "GitHook: Command output: #{output_from_command.inspect}"}
     else
-      logger.error { "GithubHook: Command '#{command}' didn't exit properly. Full output: #{output_from_command.inspect}"}
+      logger.error { "GitHook: Command '#{command}' didn't exit properly. Full output: #{output_from_command.inspect}"}
     end
 
     return success
@@ -53,7 +53,7 @@ class GithubHookController < ApplicationController
   end
 
   # Gets the project identifier from the querystring parameters and if that's not supplied, assume
-  # the Github repository name is the same as the project identifier.
+  # the Git repository name is the same as the project identifier.
   def get_identifier
     payload = JSON.parse(params[:payload] || '{}')
     identifier = params[:project_id] || payload['repository']['name']
