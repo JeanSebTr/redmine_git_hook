@@ -1,5 +1,3 @@
-require 'json'
-
 class GitHookController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :check_if_login_required
